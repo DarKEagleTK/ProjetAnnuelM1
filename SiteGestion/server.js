@@ -1,16 +1,15 @@
-//Import
-const http = require('http');
+//server.js 
+// Nous avons besoin de notre configuration
 
-//Variable
-const hostname = "127.0.0.1";
-const port = 8080;
+const app = require('./bin/express')(); 
+const router = require('./bin/express-router')(); 
 
-//Server
-const server = http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-  });
+//On fait appel à nos routes 
+require('./src/routers/default')(router); 
 
-server.listen(port, hostname, function () {
-    console.log(`Server running at http://${hostname}:${port}/`);
-})
+// Puis on dit à express d'utiliser notre router 
+app.use('/', router); 
 
+// Enfin on lance notre serveur sur le port 8080 
+app.listen(8080);
+console.log('Server launched on port 8080');

@@ -1,0 +1,23 @@
+//public/views/layout.jade 
+doctype html 
+    html(lang="fr") 
+        head 
+            meta(charset="UTF-8") 
+            title Mon site en Nodejs 
+        body 
+            block body
+//public/views/index.jade 
+extends layout.jade 
+block body 
+    section.container 
+        header.header.clearfix 
+            nav 
+                ul.nav.nav-pills.pull-right 
+                    li.active a(href="#") Accueil 
+                    li a(href="contact") Contact 
+            h3.text-muted Mon site en Nodejs 
+        div.jumbotron 
+            h1 Bienvenu sur mon site fait avec Nodejs 
+            p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. 
+            p a(href="#").btn.btn-success Voir le code 
+        footer.footer p © Company 2015
