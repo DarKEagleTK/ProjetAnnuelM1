@@ -36,12 +36,12 @@ router.post('/authentication', (req,res,next) => {
 router.get('/home', (req, res, next) => {
     if (req.session.loggedin) {
         res.render('auth/index_connected', {
-            title: "Dashboad",
+            title: "Home",
             name: req.session.name
         });
     }
     else {
-        req.flash('success', 'please login first');
+        req.flash('error', 'please login first');
         res.redirect('/auth/login');
     }
 });
@@ -49,8 +49,20 @@ router.get('/home', (req, res, next) => {
 //logout
 router.get('/logout', (req,res) => {
     req.session.destroy();
-    req.flash('success', "login again");
     res.redirect('/auth/login');
+});
+
+//achat
+router.get('/achat', (req,res,next) => {
+    if (req.session.loggedin) {
+        res.render('auth/achat', {
+            title: "Achat",
+            name: req.session.name
+        });
+    } else {
+        req.flash('error', 'please login first');
+        res.redirect('/auth/login');
+    }
 });
 
 module.exports = router;

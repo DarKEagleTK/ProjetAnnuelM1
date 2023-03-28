@@ -51,5 +51,5 @@ app.use('/about', aboutRouter);
 
 //app
 app.listen(port, () => {
-    console.log('LOGGED');
+    console.log('LUNCHED');
 });
