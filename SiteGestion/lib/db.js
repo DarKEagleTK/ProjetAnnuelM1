@@ -4,7 +4,7 @@ const { error } = require('console');
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-    host:'localhost',
+    host:'10.1.1.100',
     user:'toto',
     password:'toto',
     database:'utilisateurs',

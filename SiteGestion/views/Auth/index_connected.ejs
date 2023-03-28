@@ -1,0 +1,23 @@
+<%- include('../partials/head'); %>
+<%- include('../partials/header_connected'); %>
+
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+      
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+   
+<div class="card">
+    <div class="card-header">
+       Dashboard <b><%= name %></b>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Welcome</h5>
+        <p class="card-text">You have successfully login</p>
+        <a href="/auth/logout" class="btn btn-primary">Logout</a>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>
