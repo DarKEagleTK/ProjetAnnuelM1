@@ -19,14 +19,14 @@ router.post('/authentication', (req,res,next) => {
 
     connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row, fields) => {
         if (err) throw err;
-
         // utilisateru non existant
         if (row.length <= 0) {
-            req.flash('error', 'please enter correct auth');
+            req.flash('error', 'please enter correct email and password');
             res.redirect('/auth/login');
         }
         else {
             req.session.loggedin = true;
+            req.session.name = row[0].name;
             res.redirect('/auth/home');
         };
     });
