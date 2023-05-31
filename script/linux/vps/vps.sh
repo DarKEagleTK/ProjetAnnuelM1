@@ -1,33 +1,35 @@
 #!/bin/bash
 
 if [ "$#" -ne 5 ]; then
-    echo "Usage: $0 os name core memoire ip"
+    echo "Usage: $0 os name vmid core memoire ip disksize user 'sshkeys'"
     exit 1
 fi
 
-os = "$1"
-vm_name = "$2"
-vm_core = "$3"
-vm_memoire = "$4"
-vm_ip = "$5"
+os=$1
+name=$2
+vmid=$3
+core=$4
+memoire=$5
+ip=$6
+disksize=$7
+user=$8
+sshkeys=$9
 
-if [ $os == "l26" ]; then
-    vm_os = "l26"
-    vm_iso = "disque1:iso/debian-11.6.0-amd64-netinst.iso"
-    vm_virtio_win_iso = ""
-    vm_disk_size = "20G"
-elif [ $os == "winserver2019" ]; then
-    vm_os = "winserver2019"
-    vm_iso = "disque1:iso/SERVER_EVAL_x64FRE_fr-fr.iso"
-    vm_virtio_win_iso = "virtio-win-0.1.229.iso"
-    vm_disk_size = "60G"
+var_generator ()
+{
+    #generate base_file
+    cp ./variable.tf.new ./variables.tf
+}
+
+add_var ()
+{
+    #add variables in ./variables.tf
+}
+
+if [[ os == "debian" ]]; then
+    #ajout debian dans les variables
+    add_var()
+elif [[ os == "centos" ]]; then
+    #ajout centos dans les variables
+    add_var()
 fi
-
-echo -e `vm_name = $vm_name
-vm_memoire = $vm_memoire
-vm_core = $vm_core
-vm_os = $vm_os
-vm_iso = $vm_iso
-vm_virtio_win_iso = $vm_virtio_win_iso
-vm_disk_size = $vm_disk_size
-vm_ip = $vm_ip`
