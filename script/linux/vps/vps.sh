@@ -1,35 +1,37 @@
 #!/bin/bash
 
 if [ "$#" -ne 5 ]; then
-    echo "Usage: $0 os name vmid core memoire ip disksize user 'sshkeys'"
+    echo "Usage: $0 os name vmid core memoire ip 'sshkeys'"
     exit 1
 fi
 
+#récupération des variables
 os=$1
 name=$2
 vmid=$3
 core=$4
 memoire=$5
 ip=$6
-disksize=$7
-user=$8
-sshkeys=$9
+sshkeys=$7
 
-var_generator ()
-{
-    #generate base_file
-    cp ./variable.tf.new ./variables.tf
-}
 
-add_var ()
-{
-    #add variables in ./variables.tf
-}
+#generate base_file
+cp ./variable.tf.new ./variables.tf
 
-if [[ os == "debian" ]]; then
-    #ajout debian dans les variables
-    add_var()
-elif [[ os == "centos" ]]; then
-    #ajout centos dans les variables
-    add_var()
+#OS -> de base, format debian. pas de modif si debian selectionner
+if [[ $os == "centos" ]]; then
+    sed -i 's/template-serv-debian/template-serv-centos8/g' varaibles.tf
 fi
+
+#name
+sed -i 's/test/$name/g' varaibles.tf
+#vmid
+sed -i 's/401/$vmid/g' varaibles.tf
+#core
+sed -i 's/2/$core/g' varaibles.tf
+#memoire
+sed -i 's/2048/$memoire/g' varaibles.tf
+#ip
+sed -i 's/ip=172.16.0.10/16,qw=172.16.0.254/ip=$ip/16,qw=10.1.1.1/g' varaibles.tf
+#sshkey
+sed -i 's/test/$name/g' varaibles.tf
