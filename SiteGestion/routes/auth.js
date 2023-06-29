@@ -54,6 +54,8 @@ router.get('/logout', (req,res) => {
 
 //dashboard
 router.get('/dashboard', (req,res,next) => {
+    //query pour recupérer les données
+
     if (req.session.loggedin) {
         res.render('auth/dashboard', {
             title: "Dashboard",
