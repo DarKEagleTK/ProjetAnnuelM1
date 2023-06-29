@@ -19,7 +19,7 @@ router.post('/authentication', (req,res,next) => {
 
     connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row, fields) => {
         if (err) throw err;
-        // utilisateru non existant
+        // utilisateur non existant
         if (row.length <= 0) {
             req.flash('error', 'please enter correct email and password');
             res.redirect('/auth/login');
@@ -50,6 +50,19 @@ router.get('/home', (req, res, next) => {
 router.get('/logout', (req,res) => {
     req.session.destroy();
     res.redirect('/auth/login');
+});
+
+//dashboard
+router.get('/dashboard', (req,res,next) => {
+    if (req.session.loggedin) {
+        res.render('auth/dashboard', {
+            title: "Dashboard",
+            name: req.session.name
+        });
+    } else {
+        req.flash('error', 'please login first');
+        res.redirect('/auth/login');
+    }
 });
 
 //achat
