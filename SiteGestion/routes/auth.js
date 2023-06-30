@@ -54,17 +54,25 @@ router.get('/logout', (req,res) => {
 
 //dashboard
 router.get('/dashboard', (req,res,next) => {
+    const name = req.session.name;
     //query pour recupérer les données
+    connection.query('SELECT * FROM users INNER JOIN services ON users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+        if (err) throw err;
+        console.log(name);
+        console.log(row);
 
-    if (req.session.loggedin) {
-        res.render('auth/dashboard', {
-            title: "Dashboard",
-            name: req.session.name
-        });
-    } else {
-        req.flash('error', 'please login first');
-        res.redirect('/auth/login');
-    }
+        
+
+        if (req.session.loggedin) {
+            res.render('auth/dashboard', {
+                title: "Dashboard",
+                name: req.session.name
+            });
+        } else {
+            req.flash('error', 'please login first');
+            res.redirect('/auth/login');
+        }
+    });
 });
 
 //achat
@@ -80,4 +88,18 @@ router.get('/achat', (req,res,next) => {
     }
 });
 
+//gestions service
+router.get('/service', (req,res,next) => {
+    const service = req.body.service;
+
+    if (req.session.loggedin) {
+        res.render('auth/service', {
+            title: "Service",
+            name: req.session.name
+        });
+    } else {
+        req.flash('error', 'please login first');
+        res.redirect('/auth/login');
+    }
+});
 module.exports = router;
