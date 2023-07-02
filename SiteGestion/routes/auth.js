@@ -58,15 +58,34 @@ router.get('/dashboard', (req,res,next) => {
     //query pour recupérer les données
     connection.query('SELECT * FROM users INNER JOIN services ON users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
         if (err) throw err;
-        console.log(name);
         console.log(row);
 
-        
+        const nbr_email = row[0].mail;
+        const nbr_domain = row[0].domain;
+        const nbr_site = row[0].site;
+        const nbr_vps = row[0].vps;
+
+        if (nbr_email != null) {
+            nbr_email == 0;
+        }
+        if (nbr_domain != null) {
+            nbr_domain == 0;
+        }
+        if (nbr_site != null) {
+            nbr_site == 0;
+        }
+        if (nbr_vps != null) {
+            nbr_vps == 0;
+        }
 
         if (req.session.loggedin) {
             res.render('auth/dashboard', {
                 title: "Dashboard",
-                name: req.session.name
+                name: req.session.name,
+                nbr_domain: nbr_domain,
+                nbr_email: nbr_email,
+                nbr_site: nbr_site,
+                nbr_vps: nbr_vps
             });
         } else {
             req.flash('error', 'please login first');

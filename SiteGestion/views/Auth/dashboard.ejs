@@ -6,9 +6,85 @@
         <div class="skill">
             <div class="head">
                 <h3>Vos services</h3>
+                <hr>
             </div>
             <div class="items">
-                
+                <h4>Domaine</h4>
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>Domaine name</td>
+                        <td>Gestion</td>
+                    </tr>
+                    <% for(var i=0; i<nbr_domain; i++) { %>
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>
+                                <form action="/auth/service" method="post" name="form2">
+                                    <input type="submit" class="btn btn-primary" value="domain<% i+1 %>">
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
+                <h4>Site web</h4>
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>Site name</td>
+                        <td>Gestion</td>
+                    </tr>
+                    <% for(var i=0; i<nbr_site; i++) { %>
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>
+                                <form action="/auth/service" method="post" name="form2">
+                                    <input type="submit" class="btn btn-primary" value="Site<% i+1 %>">
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
+                <h4>Adresse mail</h4>
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>mail name</td>
+                        <td>Gestion</td>
+                    </tr>
+                    <% for(var i=0; i<nbr_email; i++) { %>
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>
+                                <form action="/auth/service" method="post" name="form2">
+                                    <input type="submit" class="btn btn-primary" value="email<% i+1 %>">
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
+                <h4>VPS</h4>
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>VPS name</td>
+                        <td>Gestion</td>
+                    </tr>
+                    <% for(var i=0; i<nbr_vps; i++) { %>
+                        <tr>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>
+                                <form action="/auth/service" method="post" name="form2">
+                                    <input type="submit" class="btn btn-primary" value="VPS<% i+1 %>">
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %>
+                </table>
             </div>
         </div>
     </div>
