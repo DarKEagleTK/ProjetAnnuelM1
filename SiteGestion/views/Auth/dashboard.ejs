@@ -18,11 +18,11 @@
                     </tr>
                     <% for(var i=0; i<nbr_domain; i++) { %>
                         <tr>
-                            <td>test</td>
-                            <td>test</td>
+                            <td><%= i+1 %></td>
+                            <td><%= list_domain[i] %></td>
                             <td>
                                 <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="domain<% i+1 %>">
+                                    <input type="submit" class="btn btn-primary" value="domain<%= i+1 %>">
                                 </form>
                             </td>
                         </tr>
@@ -37,11 +37,11 @@
                     </tr>
                     <% for(var i=0; i<nbr_site; i++) { %>
                         <tr>
-                            <td>test</td>
-                            <td>test</td>
+                            <td><%= i+1 %></td>
+                            <td><%= list_site[i] %></td>
                             <td>
                                 <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="Site<% i+1 %>">
+                                    <input type="submit" class="btn btn-primary" value="Site<%= i+1 %>">
                                 </form>
                             </td>
                         </tr>
@@ -56,11 +56,11 @@
                     </tr>
                     <% for(var i=0; i<nbr_email; i++) { %>
                         <tr>
-                            <td>test</td>
-                            <td>test</td>
+                            <td><%= i+1 %></td>
+                            <td><%= list_mail[i] %></td>
                             <td>
                                 <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="email<% i+1 %>">
+                                    <input type="submit" class="btn btn-primary" value="email<%= i+1 %>">
                                 </form>
                             </td>
                         </tr>
@@ -75,11 +75,11 @@
                     </tr>
                     <% for(var i=0; i<nbr_vps; i++) { %>
                         <tr>
-                            <td>test</td>
-                            <td>test</td>
+                            <td><%= i+1 %></td>
+                            <td><%= list_vps[i] %></td>
                             <td>
                                 <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="VPS<% i+1 %>">
+                                    <input type="submit" class="btn btn-primary" value="VPS<%= i+1 %>">
                                 </form>
                             </td>
                         </tr>

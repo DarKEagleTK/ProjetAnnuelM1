@@ -58,7 +58,6 @@ router.get('/dashboard', (req,res,next) => {
     //query pour recupérer les données
     connection.query('SELECT * FROM users INNER JOIN services ON users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
         if (err) throw err;
-        console.log(row);
 
         const nbr_email = row[0].mail;
         const nbr_domain = row[0].domain;
@@ -77,20 +76,51 @@ router.get('/dashboard', (req,res,next) => {
         if (nbr_vps != null) {
             nbr_vps == 0;
         }
-
-        if (req.session.loggedin) {
-            res.render('auth/dashboard', {
-                title: "Dashboard",
-                name: req.session.name,
-                nbr_domain: nbr_domain,
-                nbr_email: nbr_email,
-                nbr_site: nbr_site,
-                nbr_vps: nbr_vps
+        connection.query('SELECT vps.id, vps.name FROM users INNER JOIN vps ON users.id = vps.id_user WHERE users.name = ?;', [name], (err, row, fields) => {
+            if (err) throw err;
+            const list_vps = [];
+            for(i=0; i<row.length; i++) {
+                list_vps.push(row[i].name);
+            };
+            connection.query('SELECT domain.id, domain.domain FROM users INNER JOIN domain ON users.id = domain.id_user WHERE users.name = ?;', [name], (err, row, fields) => {
+                if (err) throw err;
+                const list_domain = [];
+                for(i=0; i<row.length; i++) {
+                    list_domain.push(row[i].domain);
+                };
+                connection.query('SELECT site.id, site.site FROM users INNER JOIN site ON users.id = site.id_user WHERE users.name = ?;', [name], (err, row, fields) => {
+                    if (err) throw err;
+                    const list_site = [];
+                    for(i=0; i<row.length; i++) {
+                        list_site.push(row[i].site);
+                    };
+                    connection.query('SELECT mail.id, mail.mail FROM users INNER JOIN mail ON users.id = mail.id_user WHERE users.name = ?;', [name], (err, row, fields) => {
+                        if (err) throw err;
+                        const list_mail = [];
+                        for(i=0; i<row.length; i++) {
+                            list_mail.push(row[i].mail);
+                        };
+                        if (req.session.loggedin) {
+                            res.render('auth/dashboard', {
+                                title: "Dashboard",
+                                name: req.session.name,
+                                nbr_domain: nbr_domain,
+                                nbr_email: nbr_email,
+                                nbr_site: nbr_site,
+                                nbr_vps: nbr_vps,
+                                list_domain: list_domain,
+                                list_site: list_site,
+                                list_mail: list_mail,
+                                list_vps: list_vps
+                            });
+                        } else {
+                            req.flash('error', 'please login first');
+                            res.redirect('/auth/login');
+                        }
+                    });
+                });
             });
-        } else {
-            req.flash('error', 'please login first');
-            res.redirect('/auth/login');
-        }
+        });
     });
 });
 
