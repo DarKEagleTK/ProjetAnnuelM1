@@ -140,11 +140,14 @@ router.get('/achat', (req,res,next) => {
 //gestions service
 router.get('/service', (req,res,next) => {
     const service = req.body.service;
+    const nom = req.body.nom;
 
     if (req.session.loggedin) {
-        res.render('auth/service', {
+        res.redirect('auth/service', {
             title: "Service",
-            name: req.session.name
+            name: req.session.name,
+            service: service,
+            nom: nom
         });
     } else {
         req.flash('error', 'please login first');

@@ -22,6 +22,8 @@
                             <td><%= list_domain[i] %></td>
                             <td>
                                 <form action="/auth/service" method="post" name="form2">
+                                    <input type="hidden" name="service" value="<%= name %>">
+                                    <input type="hidden" name="nom" value="<%= list_domain[i] %>">
                                     <input type="submit" class="btn btn-primary" value="domain<%= i+1 %>">
                                 </form>
                             </td>
