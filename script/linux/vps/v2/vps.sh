@@ -14,6 +14,13 @@ memoire=$5
 ip=$6
 sshkeys=$7
 
+# create a folder for the init
+cd /home/admuser/terraform/VM_client
+mkdir $vmid && cd $vmid
+cp ../../provider.tf .
+cp ../../varaibles.tf .
+cp ../../ressources.tf.new .
+
 #destroy last ressources.tf
 rm ressources.tf
 #generate base_file
