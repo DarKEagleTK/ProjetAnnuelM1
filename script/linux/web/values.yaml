@@ -18,7 +18,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: ""
+  storageClass: "local-storage"
 
 ## @section Common parameters
 ##
@@ -372,7 +372,10 @@ nodeSelector: {}
 ## @param tolerations Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: []
+tolerations: 
+  - key: node-role.kubernetes.io/control-plane
+  operator: Exists
+  effect: NoSchedules
 ## WordPress containers' resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.limits The resources limits for the WordPress containers
@@ -728,7 +731,7 @@ persistence:
   accessMode: ReadWriteOnce
   ## @param persistence.size Persistent Volume size
   ##
-  size: 10Gi
+  size: 1Gi
   ## @param persistence.dataSource Custom PVC data source
   ##
   dataSource: {}
