@@ -372,10 +372,10 @@ nodeSelector: {}
 ## @param tolerations Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 ##
-tolerations: 
-  - key: node-role.kubernetes.io/control-plane
+tolerations:
+- key: node-role.kubernetes.io/control-plane
   operator: Exists
-  effect: NoSchedules
+  effect: NoSchedule
 ## WordPress containers' resource requests and limits
 ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
 ## @param resources.limits The resources limits for the WordPress containers
