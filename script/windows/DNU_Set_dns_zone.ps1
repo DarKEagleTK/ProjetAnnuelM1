@@ -1,0 +1,1 @@
+Set-DnsServerPrimaryZone -Name "western.contoso.com" -DynamicUpdate "NonsecureAndSecure" -PassThr
