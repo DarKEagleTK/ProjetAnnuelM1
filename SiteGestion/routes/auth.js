@@ -137,21 +137,89 @@ router.get('/achat', (req,res,next) => {
     }
 });
 
+router.post('/achat-lunch', (req,res,next) => {});
+
 //gestions service
 router.get('/service', (req,res,next) => {
-    const service = req.body.service;
-    const nom = req.body.nom;
-
-    if (req.session.loggedin) {
-        res.redirect('auth/service', {
-            title: "Service",
-            name: req.session.name,
-            service: service,
-            nom: nom
+    const name = req.query.name;
+    const id = req.query.id;
+    const service = req.query.service;
+    
+    if (service == "domaine") {
+        connection.query('SELECT * FROM users INNER JOIN domain ON users.id = domain.id_user WHERE users.name = ? AND domain.id = ?;', [name, id], (err, row, fields) => {
+            if (err) throw err;
+    
+            const nom = row[0].domain;
+    
+            if (req.session.loggedin) {
+                res.render('auth/service', {
+                    title: "Service",
+                    name: req.session.name,
+                    service: service,
+                    nom: nom
+                });
+            } else {
+                req.flash('error', 'please login first');
+                res.redirect('/auth/login');
+            }
         });
-    } else {
-        req.flash('error', 'please login first');
-        res.redirect('/auth/login');
+    }
+    if (service == "site") {
+        connection.query('SELECT * FROM users INNER JOIN site ON users.id = site.id_user WHERE users.name = ? AND site.id = ?;', [name, id], (err, row, fields) => {
+            if (err) throw err;
+    
+            const nom = row[0].site;
+    
+            if (req.session.loggedin) {
+                res.render('auth/service', {
+                    title: "Service",
+                    name: req.session.name,
+                    service: service,
+                    nom: nom
+                });
+            } else {
+                req.flash('error', 'please login first');
+                res.redirect('/auth/login');
+            }
+        });
+    }
+    if (service == "mail") {
+        connection.query('SELECT * FROM users INNER JOIN mail ON users.id = mail.id_user WHERE users.name = ? AND mail.id = ?;', [name, id], (err, row, fields) => {
+            if (err) throw err;
+    
+            const nom = row[0].mail;
+    
+            if (req.session.loggedin) {
+                res.render('auth/service', {
+                    title: "Service",
+                    name: req.session.name,
+                    service: service,
+                    nom: nom
+                });
+            } else {
+                req.flash('error', 'please login first');
+                res.redirect('/auth/login');
+            }
+        });
+    }
+    if (service == "vps") {
+        connection.query('SELECT * FROM users INNER JOIN vps ON users.id = vps.id_user WHERE users.name = ? AND vps.id = ?;', [name, id], (err, row, fields) => {
+            if (err) throw err;
+    
+            const nom = row[0].name;
+    
+            if (req.session.loggedin) {
+                res.render('auth/service', {
+                    title: "Service",
+                    name: req.session.name,
+                    service: service,
+                    nom: nom
+                });
+            } else {
+                req.flash('error', 'please login first');
+                res.redirect('/auth/login');
+            }
+        });
     }
 });
 module.exports = router;

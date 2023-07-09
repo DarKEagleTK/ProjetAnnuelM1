@@ -21,11 +21,9 @@
                             <td><%= i+1 %></td>
                             <td><%= list_domain[i] %></td>
                             <td>
-                                <form action="/auth/service" method="post" name="form2">
-                                    <input type="hidden" name="service" value="<%= name %>">
-                                    <input type="hidden" name="nom" value="<%= list_domain[i] %>">
-                                    <input type="submit" class="btn btn-primary" value="domain<%= i+1 %>">
-                                </form>
+                                <a href="/auth/service?service=domaine&id=<%= i+1 %>&name=<%= name %>">
+                                    <button class="btn btn-primary">Domaine<%= i+1 %></button>
+                                </a>
                             </td>
                         </tr>
                     <% } %>
@@ -42,9 +40,9 @@
                             <td><%= i+1 %></td>
                             <td><%= list_site[i] %></td>
                             <td>
-                                <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="Site<%= i+1 %>">
-                                </form>
+                                <a href="/auth/service?service=site&id=<%= i+1 %>&name=<%= name %>">
+                                    <button class="btn btn-primary">Site<%= i+1 %></button>
+                                </a>
                             </td>
                         </tr>
                     <% } %>
@@ -61,9 +59,9 @@
                             <td><%= i+1 %></td>
                             <td><%= list_mail[i] %></td>
                             <td>
-                                <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="email<%= i+1 %>">
-                                </form>
+                                <a href="/auth/service?service=mail&id=<%= i+1 %>&name=<%= name %>">
+                                    <button class="btn btn-primary">Mail<%= i+1 %></button>
+                                </a>
                             </td>
                         </tr>
                     <% } %>
@@ -80,9 +78,9 @@
                             <td><%= i+1 %></td>
                             <td><%= list_vps[i] %></td>
                             <td>
-                                <form action="/auth/service" method="post" name="form2">
-                                    <input type="submit" class="btn btn-primary" value="VPS<%= i+1 %>">
-                                </form>
+                                <a href="/auth/service?service=vps&id=<%= i+1 %>&name=<%= name %>">
+                                    <button class="btn btn-primary">VPS<%= i+1 %></button>
+                                </a>
                             </td>
                         </tr>
                     <% } %>
