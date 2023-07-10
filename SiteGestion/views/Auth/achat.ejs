@@ -1,20 +1,122 @@
 <%- include('../partials/head'); %>
 <%- include('../partials/header_connected'); %>
 
+<% if (messages.error) { %>
+    <p style="color:red"><%- messages.error %></p>
+<% } %>
+          
+<% if (messages.success) { %>
+    <p style="color:green"><%- messages.success %></p>
+<% } %>
+
 <section class="commande" id="commande"> 
     <div class="container">
         <div class="skill">
             <div class="head">
-                <h3>VPS</h3>
+                <h3>Domaine</h3>
             </div>
             <div class="items">
-                Personnaliser votre commande : 
-                <form action="" method="post">
+                <form action="/auth/achat-lunch" method="post">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <label for="Input">Choississez votre nom de domaine : </label><br>
+                        <input type="url" name="nom_domain" id="domain" placeholder="Enter Domain Name">
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Commander">
+
+                    <input type="submit" class="btn btn-primary" value="Acheter">
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <% if (nbr_domain >= 1 ) { %>
+        <div class="container">
+            <div class="skill">
+                <div class="head">
+                    <h3>Site</h3>
+                </div>
+                <div class="items">
+                    <form action="/auth/achat-lunch" method="post">
+                        <div class="form-group">
+                            <label for="Input">Choississez votre nom de domaine : </label><br>
+                            <select name="email_domain" id="email_domain">
+                                <% for (var i = 0; i<nbr_domain; i++) { %>
+                                    <option value="<% i+1 %>"><%= list_domain[i] %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Acheter">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+    <% } %>
+    <% if (nbr_domain >= 1) { %>
+        <div class="container">
+            <div class="skill">
+                <div class="head">
+                    <h3>Email</h3>
+                </div>
+                <div class="items">
+                    <form action="/auth/achat-lunch" method="post">
+                        <div class="form-group">
+                            <label for="Input">Choississez votre nom de domaine : </label><br>
+                            <select name="email_domain" id="email_domain">
+                                <% for (var i = 0; i<nbr_domain; i++) { %>
+                                    <option value="<% i+1 %>"><%= list_domain[i] %></option>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="nom_email" id="nom_email" placeholder="toto@toto.com">
+                        </div>
+
+                        <input type="submit" class="btn btn-primary" value="Acheter">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+    <% } %>
+    <div class="container">
+        <div class="skill">
+            <div class="head">
+                <h3>vps</h3>
+            </div>
+            <div class="items">
+                <form action="/auth/achat-lunch" method="post">
+                    <div class="form-group">
+                        <label for="Input">Choississez l'offre vps : </label><br>
+                        <table>
+                            <tr>
+                                <td>Offre</td>
+                                <td>Coeurs</td>
+                                <td>RAM</td>
+                                <td>Stockage</td>
+                                <td>Reseau</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>anorexic vps</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>20</td>
+                                <td>1Gb</td>
+                                <td><input type="checkbox" name="anorexic" id="anorexic"></td>
+                            </tr>
+                            <tr>
+                                <td>obese vps</td>
+                                <td>8</td>
+                                <td>16</td>
+                                <td>20</td>
+                                <td>1Gb</td>
+                                <td><input type="checkbox" name="obese" id="obese"></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="Acheter">
                 </form>
             </div>
         </div>
