@@ -169,22 +169,25 @@ router.get('/achat', (req,res,next) => {
 });
 
 router.post('/achat-lunch', (req,res,next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-
-    connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row, fields) => {
-        if (err) throw err;
-        // utilisateur non existant
-        if (row.length <= 0) {
-            req.flash('error', 'please enter correct email and password');
-            res.redirect('/auth/login');
-        }
-        else {
-            req.session.loggedin = true;
-            req.session.name = row[0].name;
-            res.redirect('/auth/home');
-        };
-    });
+    const name = req.session.name;
+    const service = req.body.service;
+    console.log(req.body);
+    //service domaine
+    if (service == 1) {
+        
+    }
+    //service site web
+    if (service == 2) {
+        
+    }
+    //service email
+    if (service == 3) {
+        
+    }
+    //service vps
+    if (service == 4) {
+        
+    }
 });
 
 //gestions service

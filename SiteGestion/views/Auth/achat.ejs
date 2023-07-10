@@ -19,9 +19,9 @@
                 <form action="/auth/achat-lunch" method="post">
                     <div class="form-group">
                         <label for="Input">Choississez votre nom de domaine : </label><br>
-                        <input type="url" name="nom_domain" id="domain" placeholder="Enter Domain Name">
+                        <input type="text" name="nom_domain" id="domain" placeholder="Enter Domain Name">
                     </div>
-
+                    <input type="hidden" name="service" value="1">
                     <input type="submit" class="btn btn-primary" value="Acheter">
                 </form>
             </div>
@@ -38,12 +38,13 @@
                     <form action="/auth/achat-lunch" method="post">
                         <div class="form-group">
                             <label for="Input">Choississez votre nom de domaine : </label><br>
-                            <select name="email_domain" id="email_domain">
+                            <select name="site_domain" id="site_domain">
                                 <% for (var i = 0; i<nbr_domain; i++) { %>
-                                    <option value="<% i+1 %>"><%= list_domain[i] %></option>
+                                    <option value="<%= i+1 %>"><%= list_domain[i] %></option>
                                 <% } %>
                             </select>
                         </div>
+                        <input type="hidden" name="service" value="2">
                         <input type="submit" class="btn btn-primary" value="Acheter">
                     </form>
                 </div>
@@ -63,7 +64,7 @@
                             <label for="Input">Choississez votre nom de domaine : </label><br>
                             <select name="email_domain" id="email_domain">
                                 <% for (var i = 0; i<nbr_domain; i++) { %>
-                                    <option value="<% i+1 %>"><%= list_domain[i] %></option>
+                                    <option value="<%= i+1 %>"><%= list_domain[i] %></option>
                                 <% } %>
                             </select>
                         </div>
@@ -72,6 +73,7 @@
                             <input type="email" name="nom_email" id="nom_email" placeholder="toto@toto.com">
                         </div>
 
+                        <input type="hidden" name="service" value="3">
                         <input type="submit" class="btn btn-primary" value="Acheter">
                     </form>
                 </div>
@@ -116,6 +118,7 @@
                         </table>
                     </div>
 
+                    <input type="hidden" name="service" value="4">
                     <input type="submit" class="btn btn-primary" value="Acheter">
                 </form>
             </div>
