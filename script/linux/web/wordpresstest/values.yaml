@@ -1129,7 +1129,7 @@ mariadb:
     ##
     persistence:
       enabled: true
-      storageClass: ""
+      storageClass: local-storage
       accessModes:
         - ReadWriteOnce
       size: 1Gi
