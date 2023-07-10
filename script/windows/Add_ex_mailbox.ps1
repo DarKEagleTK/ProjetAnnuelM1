@@ -2,10 +2,12 @@ param
 (
     [string]$firstName,
     [string]$surName,
-    [string]$mail,
+    [string]$domain,
+    [string]$mailAlias,
     [SecureString]$password
 
 )
 
-$displayName = ($surName + ' ' + $firstname)
-New-Mailbox -Name "$displayName" -UserPrincipalName $mail -Password (ConvertTo-SecureString -String "$password" -AsPlainText -Force) -FirstName $firstName -LastName $surName
+$displayName = ($firstName + ' ' + $surName)
+$mail = ($mailAlias + '@' + $domain)
+New-Mailbox -Name "$displayName" -UserPrincipalName $mail -Password (ConvertTo-SecureString -String "$password" -AsPlainText -Force) -FirstName $firstName -LastName $surName -OrganizationalUnit $domain
