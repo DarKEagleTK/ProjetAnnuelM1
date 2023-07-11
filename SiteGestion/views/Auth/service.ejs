@@ -7,6 +7,11 @@
             <div class="head">
                 <h3>Votre <%= service %> : <%= nom %></h3>
             </div>
+            <% if (service == "vps" ) { %>
+                <div class="items">
+                    <p>Votre ip est : <%= ip %></p>
+                </div>
+            <% } %>
             <div class="items">
                 <form action="/auth/service-del" method="post">
                     <input type="hidden" name="service" value="<%= service %>">

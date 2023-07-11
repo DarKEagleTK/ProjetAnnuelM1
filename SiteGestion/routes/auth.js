@@ -286,13 +286,15 @@ router.get('/service', (req,res,next) => {
             if (err) throw err;
     
             const nom = row[0].name;
+            const ip = row[0].ip;
     
             if (req.session.loggedin) {
                 res.render('auth/service', {
                     title: "Service",
                     name: req.session.name,
                     service: service,
-                    nom: nom
+                    nom: nom,
+                    ip: ip
                 });
             } else {
                 req.flash('error', 'please login first');
@@ -345,7 +347,7 @@ router.post('/service-del', (req,res,next) => {
             connection.query("DELETE FROM vps WHERE name = ?;", [nom], (err, row, fields) => {
                 if (err) throw err;
                 connection.query("update services set vps = vps - 1 where id = ?;", [row[0].id]);
-                
+
                 //TODO : script suppression
             });
             
