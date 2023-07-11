@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../lib/db');
+const exec = require('child_process');
 
 // display login page
 router.get('/login', (req,res,next) => {
@@ -186,7 +187,34 @@ router.post('/achat-lunch', (req,res,next) => {
     }
     //service vps
     if (service == 4) {
-        
+        //recup variable
+        const type = req.body.name;
+
+        const anorexic = "/home/admuser/script/linux/vps/v2/vps.sh ";
+        const obese = "/home/admuser/script/linux/vps/v2/vps.sh";
+
+        if (type == "obese") {
+            //execution script
+            exec(obese, (err, stdout, stderr) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                if (stderr) {
+                    console.log(stderr);
+                }
+            });
+        }
+        if (type == "anorexic") {
+            //execution script
+            exec(anorexic, (err, stdout, stderr) => {
+                if (err) {
+                    console.log(err.message);
+                }
+                if (stderr) {
+                    console.log(stderr);
+                }
+            });
+        }
     }
 });
 
