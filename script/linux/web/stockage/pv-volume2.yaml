@@ -7,8 +7,9 @@ spec:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
+  storageClassName: local-storage
   local:
-    path: mnt/local-storage
+    path: /mnt/local-storage
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -16,4 +17,5 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - serv-pa-kubemaster
+                - serv-pa-kubeworker
+                - serv-pa-kubeworker2
