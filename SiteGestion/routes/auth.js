@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../lib/db');
 const spawn = require('child_process');
+const { log } = require('console');
 
 // display login page
 router.get('/login', (req,res,next) => {
@@ -306,26 +307,51 @@ router.post('/service-del', (req,res,next) => {
     const name = req.session.name;
     const service = req.body.service;
     const nom = req.body.nom;
-    const variableService = "";
+    console.log(name);
 
     if (service == "domaine") {
-        const variableService = "domain";
+        connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+            if (err) throw err;
+            console.log(row);
+            connection.query("DELETE FROM domain WHERE domain = ?;", [nom]);
+            connection.query("update services set domain = domain - 1 where id = ?;", [row[0].id]);
+
+            //TODO : script suppression
+        });
     }
     if (service == "site") {
-        const variableService = "site";
+        connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+            if (err) throw err;
+            console.log(row);
+            connection.query("DELETE FROM site WHERE site = ?;", [nom]);
+            connection.query("update services set site = site - 1 where id = ?;", [row[0].id]);
+
+            //TODO : script suppression
+        });
     }
     if (service == "mail") {
-        const variableService = "mail";
+        connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+            if (err) throw err;
+            console.log(row);
+            connection.query("DELETE FROM mail WHERE mail = ?;", [nom]);
+            connection.query("update services set mail = mail - 1 where id = ?;", [row[0].id]);
+
+            //TODO : script suppression
+        });
     }
     if (service == "vps") {
-        const variableService = "vps";
+        connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+            if (err) throw err;
+            connection.query("DELETE FROM vps WHERE name = ?;", [nom], (err, row, fields) => {
+                if (err) throw err;
+                connection.query("update services set vps = vps - 1 where id = ?;", [row[0].id]);
+                
+                //TODO : script suppression
+            });
+            
+        });
     }
-    connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
-        if (err) throw err;
-        console.log(row);
-        connection.query("DELETE FROM ? WHERE ? = ?", [service,variableService,nom]);
-        connection.query("update services set ? = ? - 1 where id = ?;", [variableService,variableService,row[0].id]);
-    });
+    
     
 });
 module.exports = router;
