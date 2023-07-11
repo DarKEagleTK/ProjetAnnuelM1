@@ -300,4 +300,10 @@ router.get('/service', (req,res,next) => {
         });
     }
 });
+
+//suppression service
+router.post('/service-del', (req,res,next) => {
+    const name = req.query.name;
+    console.log(name);
+});
 module.exports = router;
