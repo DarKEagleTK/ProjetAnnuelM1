@@ -20,7 +20,8 @@ kubectl apply -f stockage/storage-class.yaml
 helm uninstall sitetest
 kubectl delete pvc data-sitetest-mariadb-0
 kubectl delete pv local-pv1                                                                               
-kubectl delete pv local-pv2                                                                               
+kubectl delete pv local-pv2    
+                                                                          
 
 CMD kubectl :
 kubectl get events 

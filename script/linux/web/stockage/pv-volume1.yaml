@@ -7,7 +7,7 @@ spec:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-storage
+  storageClassName: standard
   local:
     path: /mnt/local-storage
   nodeAffinity:
