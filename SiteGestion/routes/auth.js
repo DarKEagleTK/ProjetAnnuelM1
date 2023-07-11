@@ -175,18 +175,20 @@ router.post('/achat-lunch', (req,res,next) => {
     console.log(req.body);
     //service domaine
     if (service == 1) {
-        
+        connection.query();
     }
     //service site web
     if (service == 2) {
-        
+        connection.query();
     }
     //service email
     if (service == 3) {
-        
+        connection.query();
     }
     //service vps
     if (service == 4) {
+        //ajout var
+        connection.query();
         //recup variable
         const type_obese = req.body.obese;
         const type_anorexic = req.body.anorexic
@@ -195,11 +197,21 @@ router.post('/achat-lunch', (req,res,next) => {
         const chemin_script = "/home/admuser/script/linux/vps/v2/vps.sh";
 
         if (type_obese == "on") {
+            const variable = ['debian', 'test', '405', 8, 8196, '10.1.20.1', ssh_key];
             //execution script
+            const lunch = spawn(chemin_script, variable);
+            lunch.stdout.on('data', data => {
+                console.log(`stdout:\n${data}`);
+            })
             console.log("ici");
         }
         if (type_anorexic == "on") {
+            const variable = ['debian', 'test', '405', 2, 2048, '10.1.20.1', ssh_key];
             //execution script
+            const lunch = spawn(chemin_script, variable);
+            lunch.stdout.on('data', data => {
+                console.log(`stdout:\n${data}`);
+            })
             console.log("ici 1");
         }
     }
@@ -287,5 +299,11 @@ router.get('/service', (req,res,next) => {
             }
         });
     }
+});
+
+//suppression service
+router.post('/service-del', (req,res,next) => {
+    const name = req.query.name;
+    console.log(name);
 });
 module.exports = router;
