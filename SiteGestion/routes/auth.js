@@ -303,7 +303,29 @@ router.get('/service', (req,res,next) => {
 
 //suppression service
 router.post('/service-del', (req,res,next) => {
-    const name = req.query.name;
-    console.log(name);
+    const name = req.session.name;
+    const service = req.body.service;
+    const nom = req.body.nom;
+    const variableService = "";
+
+    if (service == "domaine") {
+        const variableService = "domain";
+    }
+    if (service == "site") {
+        const variableService = "site";
+    }
+    if (service == "mail") {
+        const variableService = "mail";
+    }
+    if (service == "vps") {
+        const variableService = "vps";
+    }
+    connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
+        if (err) throw err;
+        console.log(row);
+        connection.query("DELETE FROM ? WHERE ? = ?", [service,variableService,nom]);
+        connection.query("update services set ? = ? - 1 where id = ?;", [variableService,variableService,row[0].id]);
+    });
+    
 });
 module.exports = router;

@@ -8,7 +8,9 @@
                 <h3>Votre <%= service %> : <%= nom %></h3>
             </div>
             <div class="items">
-                <form action="" method="post">
+                <form action="/auth/service-del" method="post">
+                    <input type="hidden" name="service" value="<%= service %>">
+                    <input type="hidden" name="nom" value="<%= nom %>">
                     <input type="submit" class="btn btn-primary" value="supprimer">
                 </form>
             </div>
