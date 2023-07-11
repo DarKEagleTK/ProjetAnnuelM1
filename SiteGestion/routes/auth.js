@@ -194,6 +194,11 @@ router.post('/achat-lunch', (req,res,next) => {
         connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
             if (err) throw err;
             connection.query("update services set site = site + 1 where id = ?;", [row[0].id]);
+
+            const sitename = "www." + req.body.site_domain;
+            connection.query('INSERT into site (id_user, site) values (?, ?);', [row[0].id, sitename]);
+
+            //TODO ajout script 
         });
     }
     //service email
@@ -201,6 +206,11 @@ router.post('/achat-lunch', (req,res,next) => {
         connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
             if (err) throw err;
             connection.query("update services set mail = mail + 1 where id = ?;", [row[0].id]);
+
+            const nom_email = req.body.nom_email;
+            connection.query('INSERT into mail (id_user, mail) values (?, ?);', [row[0].id, nom_email]);
+
+            //TODO ajout script 
         });
     }
     //service vps
@@ -209,37 +219,37 @@ router.post('/achat-lunch', (req,res,next) => {
         connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
             if (err) throw err;
             connection.query("update services set vps = vps + 1 where id = ?;", [row[0].id]);
+            //recup variable
+            const type_obese = req.body.obese;
+            const type_anorexic = req.body.anorexic
+            const ssh_key = req.body.sshkey
+
+            const chemin_script = "/home/admuser/script/linux/vps/v2/vps.sh";
+
+            if (type_obese == "on") {
+
+                /*
+                const variable = ['debian', 'test', '405', 8, 8196, '10.1.20.1', ssh_key];
+                //execution script
+                const lunch = spawn(chemin_script, variable);
+                lunch.stdout.on('data', data => {
+                    console.log(`stdout:\n${data}`);
+                })
+                console.log("ici");
+                */
+            }
+            if (type_anorexic == "on") {
+                /*
+                const variable = ['debian', 'test', '405', 2, 2048, '10.1.20.1', ssh_key];
+                //execution script
+                const lunch = spawn(chemin_script, variable);
+                lunch.stdout.on('data', data => {
+                    console.log(`stdout:\n${data}`);
+                })
+                console.log("ici 1");
+                */
+            }
         });
-        //recup variable
-        const type_obese = req.body.obese;
-        const type_anorexic = req.body.anorexic
-        const ssh_key = req.body.sshkey
-
-        const chemin_script = "/home/admuser/script/linux/vps/v2/vps.sh";
-
-        if (type_obese == "on") {
-
-            /*
-            const variable = ['debian', 'test', '405', 8, 8196, '10.1.20.1', ssh_key];
-            //execution script
-            const lunch = spawn(chemin_script, variable);
-            lunch.stdout.on('data', data => {
-                console.log(`stdout:\n${data}`);
-            })
-            console.log("ici");
-            */
-        }
-        if (type_anorexic == "on") {
-            /*
-            const variable = ['debian', 'test', '405', 2, 2048, '10.1.20.1', ssh_key];
-            //execution script
-            const lunch = spawn(chemin_script, variable);
-            lunch.stdout.on('data', data => {
-                console.log(`stdout:\n${data}`);
-            })
-            console.log("ici 1");
-            */
-        }
     }
 });
 
