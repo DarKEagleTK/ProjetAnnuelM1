@@ -1,3 +1,4 @@
+  GNU nano 5.4                                            template_deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,10 +20,10 @@ spec:
         - containerPort: 80
           name: RADICAL-cont
         volumeMounts:
-        - name: html
+        - name: RADICAL-html
           mountPath: /usr/share/nginx/html
       volumes:
-      - name: html
+      - name: RADICAL-html
         configMap:
           name: RADICAL-cm
 ---
