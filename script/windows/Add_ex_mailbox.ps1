@@ -9,5 +9,5 @@ param
 )
 
 $displayName = ($firstName + ' ' + $surName)
-$mail = ($mailAlias + '@' + $domain)
+$mail = ($mailAlias + '@' + $domain).ToLower()
 New-Mailbox -Name "$displayName" -UserPrincipalName $mail -Password (ConvertTo-SecureString -String "$password" -AsPlainText -Force) -FirstName $firstName -LastName $surName -OrganizationalUnit $domain

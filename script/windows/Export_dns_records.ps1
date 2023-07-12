@@ -1,3 +1,7 @@
+$securePassword = ConvertTo-SecureString -String "Toto12345" -AsPlainText -Force
+$id = "TGT\administrateur"
+$credential = New-Object System.Management.Automation.PSCredential($id, $securePassword)
+Invoke-Command -ComputerName 10.1.0.12 -Credential $credential -ScriptBlock {
 ## blog.schmitouille.net
 ## Script amÃ©liorÃ© de listing d'enregistrements DNS
 
@@ -34,3 +38,4 @@ foreach($dnszone in $dnszones){ ## pour chaque zone DNS...
 ##Write-Host "Parsing over, cleaned duplicates, hence the difference between the number of lines in the CSV file and the number displayed in console. Please find the output CSV file named $path in $pwd."
 ##Write-Host "Bye."
 ##explorer $pwd ## on ouvre le répertoire courant dans lequel le fichier a été stocké
+}
