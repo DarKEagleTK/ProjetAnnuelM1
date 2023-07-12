@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: RADICAL-deployment
+spec:
+  selector:
+    matchLabels:
+      app: RADICAL-match
+  replicas : 2
+  template:
+    metadata:
+      labels:
+        app: RADICAL-match
+    spec:
+      containers:
+      - name: RADICALsite
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          name: RADICAL-cont
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html
+        configMap:
+          name: RADICAL-cm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: RADICAL-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: RADICAL-match
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: RADICAL-cont

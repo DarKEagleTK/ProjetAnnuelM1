@@ -1,17 +1,13 @@
 #!/bin/bash
 
-# Variables
-NAMESPACE=""
-DEPLOYMENT_NAME=""
-SERVICE_NAME=""
-CONFIGMAP_NAME=""
-DEPLOY_DIR=""
+# Variables (paramètre $variable)
+RADICAL=$(echo $variable| awk -F'www.' '{print $2}' | awk -F'.' '{print $1}')
 
 #Désinstallation de déploiement
-kubectl delete -n $NAMESPACE deployment $DEPLOYMENT_NAME
-kubectl delete -n $NAMESPACE services $SERVICE_NAME
-kubectl delete -n $NAMESPACE cm $CONFIGMAP_NAME
-kubectl delete $NAMESPACE
+kubectl delete -n $RADICAL\-ns deployment $RADICAL\-deployment
+kubectl delete -n $RADICAL\-ns service $RADICAL\-service
+kubectl delete -n $RADICAL\-ns cm $RADICAL\-cm
+kubectl delete ns $RADICAL\-ns
 
 #Suppression du dossier de conteneur
-sudo rm -r $DEPLOY_DIR
+sudo rm -r $RADICAL\-folder
