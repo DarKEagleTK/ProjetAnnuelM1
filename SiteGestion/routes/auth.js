@@ -2,8 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('../lib/db');
-const spawn = require('child_process');
-const { log } = require('console');
+const { spawn, exec } = require('child_process');
+const { stdout, stderr } = require('process');
+const { error } = require('console');
 
 // display login page
 router.get('/login', (req,res,next) => {
@@ -179,14 +180,24 @@ router.post('/achat-lunch', (req,res,next) => {
         //ajouter dans la base service
         connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
             if (err) throw err;
-            console.log(row);
-            connection.query("update services set domain = domain + 1 where id = ?;", [row[0].id]);
-            //ajouter dans la base domaine 
-            const nv_domain = req.body.nom_domain;
 
-            connection.query('INSERT into domain (id_user, domain) values (?, ?);', [row[0].id, nv_domain]);
-
-            //TODO ajout script 
+            //TODO ajout script
+            exec('echo test', (err, stdout, stderr) => {
+                if (req.session.loggedin) {
+                    if (err) {
+                        req.flash('error', 'Service non créé');
+                    } else {
+                        connection.query("update services set domain = domain + 1 where id = ?;", [row[0].id]);
+                        const nv_domain = req.body.nom_domain;
+                        connection.query('INSERT into domain (id_user, domain) values (?, ?);', [row[0].id, nv_domain]);
+                        req.flash('success', 'Service créé');
+                        res.redirect('/auth/achat')
+                    }
+                } else {
+                    req.flash('error', 'please login first');
+                    res.redirect('/auth/login');
+                }
+            });
         });
     }
     //service site web
@@ -198,7 +209,14 @@ router.post('/achat-lunch', (req,res,next) => {
             const sitename = "www." + req.body.site_domain;
             connection.query('INSERT into site (id_user, site) values (?, ?);', [row[0].id, sitename]);
 
-            //TODO ajout script 
+            //TODO ajout script
+            const chemin_script = "ls";
+            const variable = ['.'];
+            const lunch = spawn(chemin_script, variable);
+            lunch.stdout.on('data', data => {
+                console.log(`stdout:\n${data}`);
+            });
+            lunch.stdin.end();
         });
     }
     //service email
@@ -210,7 +228,14 @@ router.post('/achat-lunch', (req,res,next) => {
             const nom_email = req.body.nom_email;
             connection.query('INSERT into mail (id_user, mail) values (?, ?);', [row[0].id, nom_email]);
 
-            //TODO ajout script 
+            //TODO ajout script
+            const chemin_script = "ls";
+            const variable = ['.'];
+            const lunch = spawn(chemin_script, variable);
+            lunch.stdout.on('data', data => {
+                console.log(`stdout:\n${data}`);
+            });
+            lunch.stdin.end();
         });
     }
     //service vps
