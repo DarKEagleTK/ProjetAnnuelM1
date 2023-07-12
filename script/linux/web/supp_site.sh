@@ -1,8 +1,17 @@
 #!/bin/bash
 
 # Variables
-KUBE_NAMESPACE="default"
-DEPLOYMENT_NAME="your-deployment-name"
+NAMESPACE=""
+DEPLOYMENT_NAME=""
+SERVICE_NAME=""
+CONFIGMAP_NAME=""
+DEPLOY_DIR=""
 
-# Uninstall the Helm release, which will delete the associated Kubernetes resources (including pods)
-helm uninstall $DEPLOYMENT_NAME --namespace $KUBE_NAMESPACE
+#Désinstallation de déploiement
+kubectl delete -n $NAMESPACE deployment $DEPLOYMENT_NAME
+kubectl delete -n $NAMESPACE services $SERVICE_NAME
+kubectl delete -n $NAMESPACE cm $CONFIGMAP_NAME
+kubectl delete $NAMESPACE
+
+#Suppression du dossier de conteneur
+sudo rm -r $DEPLOY_DIR

@@ -1,4 +1,4 @@
-  GNU nano 5.4                                           carwebsite/deployment.yaml                                                    apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: car-serv

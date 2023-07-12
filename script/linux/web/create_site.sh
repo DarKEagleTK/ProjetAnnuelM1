@@ -1,18 +1,22 @@
 #!/bin/bash
 
-# Variables
-KUBE_NAMESPACE="default"
-WEB_SERVER_SSH_USER="webserver-ssh-user"
-WEB_SERVER_IP="webserver-ip"
-WEB_SERVER_SITE_FOLDER="/var/www/sites"
+#Variables 
+NAMESPACE=""
+RADICAL=""
+DEPLOY_DIR=""
+NB_REPLICAS=""
 
-# Deploy each site using Helm
-sites=("site1" "site2" "site3")
+#Création du dossier de deploiement
+mkdir $DEPLOY_DIR && cd $DEPLOY_DIR
+cp ../template_deployment.yaml
 
-for site in "${sites[@]}"; do
-  # Copy the Helm chart for the site to the server
-  scp -r "$site" $WEB_SERVER_SSH_USER@$WEB_SERVER_IP:$WEB_SERVER_SITE_FOLDER/
+#Création du nom de l'espace pour le conteneur dédié
+kubectl create namespace $NAMESPACE 
 
-  # Install the Helm chart on the Kubernetes cluster
-  helm upgrade --install $site $site/ --namespace $KUBE_NAMESPACE --values $site/values.yaml
-done
+#Création de la ConfigMap selon le dossier spécifié
+kubectl create configmap $RADICAL\_cm --from-file=./
+
+#Création du fichier deployment.yaml (qui contiendra également le service.yaml)
+
+#Application du deployment.yaml dans le namespace spécifié
+kubectl apply -n $NAMESPACE -f "./deployment.yaml"

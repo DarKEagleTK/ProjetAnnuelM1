@@ -14,7 +14,7 @@ data:
           listen       80;
           server_name  localhost;
           location / {
-            root   /usr/share/nginx/html; #Change this line
+            root   /usr/share/nginx/html;
             index  index.html index.htm;
         }
       }
