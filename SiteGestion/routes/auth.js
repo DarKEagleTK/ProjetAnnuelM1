@@ -190,8 +190,9 @@ router.post('/achat-lunch', (req,res,next) => {
                         connection.query("update services set domain = domain + 1 where id = ?;", [row[0].id]);
                         const nv_domain = req.body.nom_domain;
                         connection.query('INSERT into domain (id_user, domain) values (?, ?);', [row[0].id, nv_domain]);
+                        
                         req.flash('success', 'Service créé');
-                        res.redirect('/auth/achat')
+                        res.redirect('/auth/achat');
                     }
                 } else {
                     req.flash('error', 'please login first');
@@ -208,34 +209,48 @@ router.post('/achat-lunch', (req,res,next) => {
 
             const sitename = "www." + req.body.site_domain;
             connection.query('INSERT into site (id_user, site) values (?, ?);', [row[0].id, sitename]);
+            
+            exec('', (err, stdout, stderr) => {
+                if (req.session.loggedin) {
+                    if (err) {
+                        req.flash('error', 'Service non créé');
+                    } else {
+                        connection.query("update services set site = site + 1 where id = ?;", [row[0].id]);
+                        const sitename = "www." + req.body.site_domain;
+                        connection.query('INSERT into site (id_user, site) values (?, ?);', [row[0].id, sitename]);
 
-            //TODO ajout script
-            const chemin_script = "ls";
-            const variable = ['.'];
-            const lunch = spawn(chemin_script, variable);
-            lunch.stdout.on('data', data => {
-                console.log(`stdout:\n${data}`);
+                        req.flash('success', 'Service créé');
+                        res.redirect('/auth/achat');
+                    }
+                } else {
+                    req.flash('error', 'please login first');
+                    res.redirect('/auth/login');
+                }
             });
-            lunch.stdin.end();
         });
     }
     //service email
     if (service == 3) {
         connection.query('SELECT services.id from users inner join services on users.id = services.id WHERE users.name = ?;', [name], (err, row, fields) => {
             if (err) throw err;
-            connection.query("update services set mail = mail + 1 where id = ?;", [row[0].id]);
 
-            const nom_email = req.body.nom_email;
-            connection.query('INSERT into mail (id_user, mail) values (?, ?);', [row[0].id, nom_email]);
+            exec('', (err, stdout, stderr) => {
+                if (req.session.loggedin) {
+                    if (err) {
+                        req.flash('error', 'Service non créé');
+                    } else {
+                        connection.query("update services set mail = mail + 1 where id = ?;", [row[0].id]);
+                        const nom_email = req.body.nom_email;
+                        connection.query('INSERT into mail (id_user, mail) values (?, ?);', [row[0].id, nom_email]);
 
-            //TODO ajout script
-            const chemin_script = "ls";
-            const variable = ['.'];
-            const lunch = spawn(chemin_script, variable);
-            lunch.stdout.on('data', data => {
-                console.log(`stdout:\n${data}`);
+                        req.flash('success', 'Service créé');
+                        res.redirect('/auth/achat');
+                    }
+                } else {
+                    req.flash('error', 'please login first');
+                    res.redirect('/auth/login');
+                }
             });
-            lunch.stdin.end();
         });
     }
     //service vps
@@ -252,30 +267,13 @@ router.post('/achat-lunch', (req,res,next) => {
             const chemin_script = "/home/admuser/script/linux/vps/v2/vps.sh";
 
             if (type_obese == "on") {
-
-                /*
-                const variable = ['debian', 'test', '405', 8, 8196, '10.1.20.1', ssh_key];
-                //execution script
-                const lunch = spawn(chemin_script, variable);
-                lunch.stdout.on('data', data => {
-                    console.log(`stdout:\n${data}`);
-                })
-                console.log("ici");
-                */
+                //to do
             }
             if (type_anorexic == "on") {
-                /*
-                const variable = ['debian', 'test', '405', 2, 2048, '10.1.20.1', ssh_key];
-                //execution script
-                const lunch = spawn(chemin_script, variable);
-                lunch.stdout.on('data', data => {
-                    console.log(`stdout:\n${data}`);
-                })
-                console.log("ici 1");
-                */
+                //to do
             }
         });
-    }
+    };
 });
 
 //gestions service
