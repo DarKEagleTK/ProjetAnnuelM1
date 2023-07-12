@@ -8,7 +8,7 @@ NB_REPLICAS=""
 
 #Création du dossier de deploiement
 mkdir $DEPLOY_DIR && cd $DEPLOY_DIR
-cp ../template_deployment.yaml
+cp ../template_deployment.yaml deployment.yaml
 
 #Création du nom de l'espace pour le conteneur dédié
 kubectl create namespace $NAMESPACE 
