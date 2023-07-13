@@ -1,0 +1,8 @@
+CMD kubectl :
+kubectl get events 
+kubectl logs <pod>
+
+kubectl get deployments --all-namespaces
+kubectl get services
+kubectl get pods
+kubectl get pvc

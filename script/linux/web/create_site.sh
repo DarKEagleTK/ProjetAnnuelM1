@@ -12,7 +12,7 @@ mkdir $RADICAL-folder && cd $RADICAL-folder/
 if [ -f /tmp/$RADICAL.zip ]; then
     unzip /tmp/$RADICAL.zip -d /home/admuser/$RADICAL-folder
 else
-    cp -r /tmp/$RADICAL /home/admuser/$RADICAL-folder/
+    cp -r /tmp/$RADICAL/* /home/admuser/$RADICAL-folder/
 fi
 
 #Création du nom de l'espace pour le conteneur dédié

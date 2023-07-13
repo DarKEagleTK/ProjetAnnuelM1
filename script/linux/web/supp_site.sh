@@ -12,4 +12,3 @@ kubectl delete ns $RADICAL-ns
 
 #Suppression du dossier de conteneur
 sudo rm -r $RADICAL-folder/
-
