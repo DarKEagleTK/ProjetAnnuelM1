@@ -1,3 +1,4 @@
 /node_modules/*
 /SiteGestion/node_modules/*
 /site_test/*
+/script/linux/vps/v2/variables.tf
